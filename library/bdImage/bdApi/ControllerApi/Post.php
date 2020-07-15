@@ -15,7 +15,6 @@ class bdImage_bdApi_ControllerApi_Post extends XFCP_bdImage_bdApi_ControllerApi_
             $firstPostDw->setExistingData($post, true);
 
             $threadImageData = bdImage_Helper_Data::unpack($thread['bdimage_image']);
-            $threadIsCover = !empty($threadImageData['is_cover']) ? $threadImageData['is_cover'] : false;
 
             $postBodyImages = array();
             $imageDataList = $firstPostDw->bdImage_extractImage(true);
@@ -28,7 +27,7 @@ class bdImage_bdApi_ControllerApi_Post extends XFCP_bdImage_bdApi_ControllerApi_
                         $data[bdImage_Helper_Data::IMAGE_URL] === $threadImageData[bdImage_Helper_Data::IMAGE_URL] ? true : false,
                     'image_is_cover' =>
                         ($data[bdImage_Helper_Data::IMAGE_URL] === $threadImageData[bdImage_Helper_Data::IMAGE_URL]
-                            & $threadIsCover) ? true : false
+                            & (!empty($threadImageData['is_cover']) ? $threadImageData['is_cover'] : false)) ? true : false
                 );
             }
             $response->params['post_images'] = $postBodyImages;
