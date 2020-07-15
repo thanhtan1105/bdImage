@@ -15,6 +15,8 @@ class bdImage_bdApi_ControllerApi_Post extends XFCP_bdImage_bdApi_ControllerApi_
             $firstPostDw->setExistingData($post, true);
 
             $threadImageData = bdImage_Helper_Data::unpack($thread['bdimage_image']);
+            $threadImageData['is_cover'] = !empty($threadImageData['is_cover']) ? $threadImageData['is_cover'] : false;
+
             $postBodyImages = array();
             $imageDataList = $firstPostDw->bdImage_extractImage(true);
             foreach ($imageDataList as $imageData) {
